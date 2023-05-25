@@ -3,7 +3,7 @@
         <div class="swiper-container" id="swiperIndex">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" v-for="(item,index) in imgs" :key="index">
-                    <img :src="item.pic" alt="">
+                    <img :src="item.pic">
                 </div>
             </div>
             <div class="swiper-pagination">
