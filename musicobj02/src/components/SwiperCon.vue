@@ -16,6 +16,7 @@
 <script>
 import "swiper/css/swiper.css"
 import Swiper from 'swiper'
+import { getBanner } from "@/api/index"
 export default {
     name:"SwiperCon",
     data() {
@@ -23,11 +24,17 @@ export default {
             imgs:[  //轮播图的数据
                 {pic:require("../assets/logo.png")},
                 {pic:require("../assets/logo.png")},
+                {pic:require("../assets/logo.png")},
+                {pic:require("../assets/logo.png")},
+                {pic:require("../assets/logo.png")},
+                {pic:require("../assets/logo.png")},
                 {pic:require("../assets/logo.png")}
             ]
         }
     },
-    mounted(){
+    async mounted(){     //async......await  异步ajax请求函数
+        var res = await getBanner(1);
+        this.imgs=res.data.banners;
         var myswiper = new Swiper("#swiperIndex",{
             loop:true,  //循环播放
             // autoplay:true    //自动轮播
