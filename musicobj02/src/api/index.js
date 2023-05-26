@@ -8,7 +8,7 @@ export function getBanner(type=0){
     return axios.get(`${baseUrl}/banner?type=${type}`);
 }
 
-export function getList(limit){
+export function getList(limit=10){
     return axios.get(`${baseUrl}/personalized?limit=${limit}`);
 }
 
