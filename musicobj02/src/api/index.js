@@ -8,10 +8,18 @@ export function getBanner(type=0){
     return axios.get(`${baseUrl}/banner?type=${type}`);
 }
 
+// 音乐列表
 export function getList(limit=10){
     return axios.get(`${baseUrl}/personalized?limit=${limit}`);
 }
 
+// 歌单详情
+export function getxiangqing(id){
+    return axios.get(`${baseUrl}/playlist/detail?id=${id}`);
+}
+
+
+
 
 //对外抛出
-export default { getBanner,getList };
+export default { getBanner,getList,getxiangqing };
