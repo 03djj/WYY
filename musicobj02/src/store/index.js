@@ -15,13 +15,21 @@ export default createStore({
         }
       } 
     ],
-    playCurrentIndex:0  // 当前播放音乐在音乐列表中的下标
+    playCurrentIndex:0,  // 当前播放音乐在音乐列表中的下标
+    flag:true
   },
   getters: {
   },
   mutations: {
     setPlayList(state,value){ //定义一个函数用来修改state中播放列表的数据
       state.playlist = value;
+    },
+    setPlayIndex(state,value){
+      state.flag = true;
+      state.playCurrentIndex = value;
+    },
+    setflag(state,value){
+      state.flag = value;
     }
   },
   actions: {

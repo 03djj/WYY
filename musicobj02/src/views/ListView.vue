@@ -13,6 +13,7 @@ import { onMounted,reactive } from 'vue';
 import { getxiangqing } from "@/api/index"
 import listviewTop from '@/components/ListViewTop.vue'
 import playList from '@/components/PlayList.vue'
+
 export default{
     name:"listview",
     setup(){

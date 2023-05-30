@@ -1,52 +1,64 @@
 <template>
     <div class="playController">
         <div class="left">
-            <img :src="playlist[playCurrentIndex].al.picUrl" alt="">
+            <img :src="playlist[playCurrentIndex].al.picUrl" alt="" @click="show=!show">
             <div class="content">
                 <div class="title">{{ playlist[playCurrentIndex].name }}</div>
                 <div class="tips">横滑可以切换上下首</div>
             </div>
         </div>
         <div class="right">
-            <svg class="icon" aria-hidden="true" @click="bf" v-if="flag==true">
+            <svg class="icon" aria-hidden="true" @click="play" v-if="flag">
                 <use xlink:href="#icon-bofang1"></use>
             </svg>
-            <svg class="icon" aria-hidden="true" @click="zt" v-else>
+            <svg class="icon" aria-hidden="true" @click="play" v-else>
                 <use xlink:href="#icon-iconstop"></use>
             </svg>
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-liebiao1"></use>
             </svg>
         </div>
+
+
+        <!-- 歌曲详情 -->
+        <play-music v-show="show" @back="show=!show"></play-music>
+
         <!-- 如何获取播放歌曲的mp3地址 https://music.163.com/song/media/outer/url?id=歌曲id.mp3 -->
         <!-- controls audio标签属性  一般不显示  -->
-        <!-- audio play()播放 pause()暂停  -->
+        <!-- audio play()播放 pause()暂停 paused当前歌曲是否处于暂停状态  -->
         <audio ref="audio" :src="`https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`"></audio>
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import store from '@/store/index';
+import playMusic from '@/components/PlayMusic.vue'
 
 export default{
     name:"playcontroller",
     data() {
         return {
-            flag:true,
+            // flag:flag
+            show:false
         }
     },
     computed:{
-        ...mapState(["playlist","playCurrentIndex"])
+        ...mapState(["playlist","playCurrentIndex","flag"])
     },
     methods:{
-        bf(){
-            this.$refs.audio.play();
-            this.flag=false;
-        },
-        zt(){
-            this.$refs.audio.pause();
-            this.flag=true;
+        play(){
+            if(this.$refs.audio.paused){
+                this.$refs.audio.play();
+                store.commit('setflag', false);
+            }else{
+                this.$refs.audio.pause();
+                store.commit('setflag', true);
+            }
         }
+    },
+    components:{
+        playMusic
     }
 }
 </script>

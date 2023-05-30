@@ -2,7 +2,7 @@
     <div class="playlist">
         <div class="playlist-top">
             <div class="left">
-                <svg class="icon" aria-hidden="true">
+                <svg class="icon" aria-hidden="true" @click="huoqu">
                     <use xlink:href="#icon-bofang3"></use>
                 </svg>
                 <div class="text">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <svg class="icon" aria-hidden="true">
+                    <svg class="icon" aria-hidden="true" @click="setPlayIndex(index)">
                         <use xlink:href="#icon-bofang2"></use>
                     </svg>
                     <svg class="icon" aria-hidden="true">
@@ -39,10 +39,21 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+import store from '@/store/index';
+
 
 export default{
     name:"playlist",
     props:["arr2"],
+    methods:{
+        ...mapMutations(["setPlayIndex"]),
+        huoqu(){
+            store.commit("setPlayList",this.arr2.tracks);
+            // store.commit("setflag",true);
+        }
+        
+    }
 }
 </script>
 
