@@ -1,6 +1,6 @@
 <template>
     <div class="playMusic">
-        <div class="bg" :style="{backgroundImage:`url(https://p1.music.126.net/SATl5PH1NpEPHsYaB24t5A==/109951166269856073.jpg)`}"></div>
+        <div class="bg" :style="{backgroundImage:`url(${playDetail.al.picUrl})`}"></div>
         <div class="playTop">
             <div class="back">
                 <svg class="icon" aria-hidden="true" @click="$emit('back')">
@@ -8,7 +8,7 @@
                 </svg>
             </div>
             <div class="center">
-                <div class="title">断桥残雪</div>
+                <div class="title">{{ playDetail.name }}</div>
             </div>
             <div class="share">
                 <svg class="icon" aria-hidden="true">
@@ -21,24 +21,24 @@
             15906189770ashdjkasjkdhkjashjkdhsjk
         </div>
         <div v-else @click="isLyric=!isLyric" class="playContent">
-            <img class="needle active" src="@/assets/img/needle-ip6.png" alt="">
+            <img class="needle" :class="{active:!flags}" src="@/assets/img/needle-ip6.png" alt="">
             <img class="disc" src="@/assets/img/disc-ip6.png" alt="">
-            <img class="playImg" src="https://p1.music.126.net/SATl5PH1NpEPHsYaB24t5A==/109951166269856073.jpg" alt="">
+            <img class="playImg" :src="playDetail.al.picUrl" alt="">
         </div>
         <div class="playFooter">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-xunhuan"></use>
             </svg>
-            <svg class="icon" aria-hidden="true">
+            <svg class="icon" aria-hidden="true" @click="tabMusic(-1)">
                 <use xlink:href="#icon-shangyishoushangyige"></use>
             </svg>
-            <svg class="icon" aria-hidden="true">
+            <svg v-if="flags" @click="play" class="icon" aria-hidden="true">
                 <use xlink:href="#icon-bofang_huaban"></use>
             </svg>
-            <svg class="icon" aria-hidden="true">
+            <svg v-else  @click="play" class="icon" aria-hidden="true">
                 <use xlink:href="#icon-iconstop"></use>
             </svg>
-            <svg class="icon" aria-hidden="true">
+            <svg class="icon" aria-hidden="true" @click="tabMusic(1)">
                 <use xlink:href="#icon-xiayigexiayishou"></use>
             </svg>
             <svg class="icon" aria-hidden="true">
@@ -50,13 +50,33 @@
 
 
 <script>
+import { mapMutations, mapState } from 'vuex'
 export default{
     name:"playmusic",
+    props:["flags","play","playDetail"],
     data() {
         return {
             isLyric:false
         }
     },
+    computed:{
+        ...mapState(["playCurrentIndex","playlist"])
+    },
+    methods:{
+        tabMusic(num){
+            console.log(num);
+            let index = this.playCurrentIndex+num;
+            console.log(index);
+            if(index < 0){
+                index = this.playlist.length-1;
+            }else if(index == this.playlist.length){
+                index=0;
+            }
+            this.setPlayIndex(index);
+            
+        },
+        ...mapMutations(["setPlayIndex"])
+    }
 }
 </script>
 

@@ -21,7 +21,7 @@
 
 
         <!-- 歌曲详情 -->
-        <play-music v-show="show" @back="show=!show"></play-music>
+        <play-music v-show="show" :flags="flag" :play="play" :playDetail="playlist[playCurrentIndex]" @back="show=!show"></play-music>
 
         <!-- 如何获取播放歌曲的mp3地址 https://music.163.com/song/media/outer/url?id=歌曲id.mp3 -->
         <!-- controls audio标签属性  一般不显示  -->
