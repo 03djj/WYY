@@ -18,7 +18,7 @@
         </div>
 
         <div v-if="isLyric" @click="isLyric=!isLyric" class="playLyric">
-            15906189770ashdjkasjkdhkjashjkdhsjk
+            {{ lyric }}
         </div>
         <div v-else @click="isLyric=!isLyric" class="playContent">
             <img class="needle" :class="{active:!flags}" src="@/assets/img/needle-ip6.png" alt="">
@@ -60,7 +60,7 @@ export default{
         }
     },
     computed:{
-        ...mapState(["playCurrentIndex","playlist"])
+        ...mapState(["playCurrentIndex","playlist","lyric"])
     },
     methods:{
         tabMusic(num){
@@ -75,7 +75,7 @@ export default{
             this.setPlayIndex(index);
             
         },
-        ...mapMutations(["setPlayIndex"])
+        ...mapMutations(["setPlayIndex","setLyric"])
     }
 }
 </script>

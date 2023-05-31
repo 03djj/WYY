@@ -33,6 +33,7 @@
 <script>
 import { mapState } from 'vuex';
 import store from '@/store/index';
+import { getLyric } from '@/api/index'
 import playMusic from '@/components/PlayMusic.vue'
 
 export default{
@@ -45,6 +46,14 @@ export default{
     },
     computed:{
         ...mapState(["playlist","playCurrentIndex","flag"])
+    },
+    async mounted() {
+        var res = await getLyric(this.playlist[this.playCurrentIndex].id);
+        store.commit("setLyric",res.data.lrc.lyric);
+    },
+    async updated() {
+        var res = await getLyric(this.playlist[this.playCurrentIndex].id);
+        store.commit("setLyric",res.data.lrc.lyric);
     },
     methods:{
         play(){

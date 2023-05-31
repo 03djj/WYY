@@ -18,8 +18,17 @@ export function getxiangqing(id){
     return axios.get(`${baseUrl}/playlist/detail?id=${id}`);
 }
 
+// 歌词详情
+export function getLyric(id){
+    return axios.get(`${baseUrl}/lyric?id=${id}`);
+}
+
+export function getsearch(keywords){
+    return axios.get(`${baseUrl}/search?keywords=${keywords}`);
+}
+
 
 
 
 //对外抛出
-export default { getBanner,getList,getxiangqing };
+export default { getBanner,getList,getxiangqing,getsearch };
