@@ -1,7 +1,7 @@
 <template>
     <div class="searchTop">
         <div class="searchTopNav">
-            <div class="back">
+            <div class="back" @click=" $router.go(-1)">
                 <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-sdf"></use>
                 </svg>
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="right">
-                        <svg class="icon" aria-hidden="true">
+                        <svg class="icon" aria-hidden="true" @click="setPlay(item)">
                             <use xlink:href="#icon-bofang2"></use>
                         </svg>
                         <svg class="icon" aria-hidden="true">
@@ -50,6 +50,7 @@
 
 <script>
 import { getsearch } from '@/api/index'
+import { mapMutations, mapState } from 'vuex'
 export default{
     name:"search",
     data() {
@@ -57,6 +58,9 @@ export default{
             val:"",
             songs:[]
         }
+    },
+    computed:{
+        ...mapState(["playlist"])
     },
     methods:{
         async down(){
@@ -68,7 +72,20 @@ export default{
                 console.log(this.songs)
             }
             
-        }
+        },
+        setPlay(item){
+            
+            // 改格式,让其与默认数据保持一致
+            item.al=item.album;
+            item.al.picUrl=item.album.artist.img1v1Url;
+            console.log(item)
+            // 将当前歌曲追加到播放列表末尾
+            this.pushPlayList(item);
+            // 将正在播放歌曲的下标切换到最后一个下标
+            // 最后一个下标,数组长度-1
+            this.setPlayIndex(this.playlist.length-1)
+        },
+        ...mapMutations(["pushPlayList","setPlayIndex"])
     }
 }
 </script>

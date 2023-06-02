@@ -17,13 +17,17 @@ export default createStore({
     ],
     playCurrentIndex:0,  // 当前播放音乐在音乐列表中的下标
     flag:true,
-    lyric:"abc"  //保存当前歌词
+    lyric:"abc",  //保存当前歌词
+    isLogin:true  //用户默认登录状态
   },
   getters: {
   },
   mutations: {
     setPlayList(state,value){ //定义一个函数用来修改state中播放列表的数据
       state.playlist = value;
+    },
+    pushPlayList(state,value){  // 定义了一个函数用在playlist末尾追加一条数据
+      state.playlist.push(value)
     },
     setPlayIndex(state,value){  //定义一个函数用来修改当前正在播放歌曲的下标
       state.flag = true;
